@@ -1,20 +1,22 @@
-## This is a unit test that need to be improved
-import unittest
+
+
 import os
-from cnnClassifier import logger
-from cnnClassifier.constants import *
-from cnnClassifier.utils.common import read_yaml, create_directories
-from cnnClassifier.entity.config_entity import DataIngestionConfig
-from box import ConfigBox
 from box.exceptions import BoxValueError
+from cnnClassifier import logger
+from cnnClassifier.entity.config_entity import DataIngestionConfig
 
 ## This is a unit test that need to be improved
 import unittest
-
 # Compatibility for different Python versions
 if not hasattr(unittest.TestCase, 'assertRaisesRegexp'):
     unittest.TestCase.assertRaisesRegexp = unittest.TestCase.assertRaisesRegex
 
+
+##  This is what is in the video
+from cnnClassifier.constants import *
+from cnnClassifier.utils.common import read_yaml, create_directories
+
+## Class definition
 class ConfigurationManager:
     def __init__(
         self,

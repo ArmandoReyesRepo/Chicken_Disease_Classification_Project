@@ -3,10 +3,13 @@ import urllib.request as request
 import zipfile
 from cnnClassifier import logger
 from cnnClassifier.utils.common import get_size
-import requests
-import certifi
 from pathlib import Path
 from cnnClassifier.entity.config_entity import DataIngestionConfig
+
+##  These are to get the files, python authorize ssl permisions
+import requests
+import certifi
+
 
 class DataIngestion:
     def __init__(self, config: DataIngestionConfig):
