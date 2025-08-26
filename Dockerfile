@@ -1,5 +1,5 @@
 # Use official Python 3.12 slim image
-FROM python:3.12-slim-buster
+FROM python:3.12-slim-bullseye
 
 # Install system dependencies (awscli + others you may need later)
 RUN apt-get update -y && \
