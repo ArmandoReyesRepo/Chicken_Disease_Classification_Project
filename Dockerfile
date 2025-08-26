@@ -1,10 +1,11 @@
-# Use official Python 3.11 slim image (compatible with TensorFlow)
-FROM python:3.11-slim-bullseye
+# ------------------------------
+# Stage 1: Builder
+# ------------------------------
+FROM python:3.11-slim-bullseye AS builder
 
-# Install system dependencies
+# Install system dependencies for building packages
 RUN apt-get update -y && \
     apt-get install -y --no-install-recommends \
-        awscli \
         build-essential \
         gcc \
         g++ \
@@ -28,8 +29,28 @@ WORKDIR /app
 # Copy all files
 COPY . /app
 
-# Install Python dependencies
-RUN pip install --no-cache-dir -r requirements.txt
+# Install all Python dependencies in builder stage
+RUN pip install --prefix=/install --no-cache-dir tensorflow==2.13.0
+RUN pip install --prefix=/install --no-cache-dir -r requirements.txt
+
+# ------------------------------
+# Stage 2: Final image
+# ------------------------------
+FROM python:3.11-slim-bullseye
+
+# Install minimal runtime dependencies
+RUN apt-get update -y && \
+    apt-get install -y --no-install-recommends awscli libpq-dev libssl-dev libffi-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+# Set working directory
+WORKDIR /app
+
+# Copy installed Python packages from builder
+COPY --from=builder /install /usr/local
+
+# Copy app code
+COPY . /app
 
 # Run the app
 CMD ["python", "app.py"]
