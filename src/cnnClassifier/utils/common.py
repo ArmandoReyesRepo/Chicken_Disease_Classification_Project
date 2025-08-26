@@ -11,6 +11,20 @@ from typing import Any
 import base64
 
 
+### This is added to fix problem with ensure
+
+## This is a unit test that need to be improved
+import unittest
+
+# Compatibility for different Python versions
+if not hasattr(unittest.TestCase, 'assertRaisesRegexp'):
+    unittest.TestCase.assertRaisesRegexp = unittest.TestCase.assertRaisesRegex
+
+### This is added to fix problem with ensure
+
+
+
+
 @ensure_annotations
 def read_yaml(yaml_file: Path) -> ConfigBox:
     """Reads YAML file and returns ConfigBox
