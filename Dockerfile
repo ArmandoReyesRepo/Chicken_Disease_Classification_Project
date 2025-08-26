@@ -1,13 +1,14 @@
-# Use official Python 3.12 slim image
-FROM python:3.12-slim-bullseye
+# Use official Python 3.11 slim image (compatible with TensorFlow)
+FROM python:3.11-slim-bullseye
 
-# Install system dependencies for pip packages + awscli
+# Install system dependencies
 RUN apt-get update -y && \
     apt-get install -y --no-install-recommends \
         awscli \
         build-essential \
         gcc \
         g++ \
+        gfortran \
         libpq-dev \
         libffi-dev \
         libssl-dev \
@@ -24,7 +25,7 @@ RUN pip install --upgrade pip setuptools wheel
 # Set working directory
 WORKDIR /app
 
-# Copy everything into container
+# Copy all files
 COPY . /app
 
 # Install Python dependencies
