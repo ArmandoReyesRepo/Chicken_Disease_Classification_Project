@@ -208,3 +208,7 @@ __marimo__/
 
 
 artifacts/*
+
+
+## In order to avoid problems with secrets
+README.md
